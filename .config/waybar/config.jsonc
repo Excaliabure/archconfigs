@@ -1,0 +1,47 @@
+ 
+{
+    "layer": "top",
+    "position": "top",
+    "height": 24,
+    "spacing": 3,
+    
+    "on-sigusr1": "hide",
+    "on-sigusr2": "show",
+   // ...the rest of your config
+
+
+    // Left side
+    "modules-left": [
+        "custom/arch",
+        "hyprland/workspaces"
+    ],
+
+    // Center
+    "modules-center": [
+        "hyprland/window"
+    ],
+
+    // Right side
+    "modules-right": [
+        // "idle_inhibitor",
+
+        "pulseaudio",
+        //"bluetooth",
+        "network",
+
+        //"custom/sysmon",
+
+
+        "clock",
+	    "battery"
+        // "custom/power"
+    ],
+
+    // Load module definitions
+    "include": [
+        "~/.config/waybar/modules.json"
+    ]
+}
+
+//"format": " {:%I:%M %p  %e %B}",
+//"tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
