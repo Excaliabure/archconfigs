@@ -104,30 +104,47 @@ function start_services(){
 
 
 
-if [ "$1" == "" ];then
+function display_help(){
 	echo -e "./start.sh [Options]
 	
 	all - Full install, use only if starting from scratch
 	packages - Only installs the packages used by mwah
 	gitsetup - Sets up github
 	builds - Builds up used external non-pacman packages"
-fi
+}
 
-if [ "$1" == "all" ];then
-	pacpkg
-	clone_and_build
-	start_services
-fi
+function perform_backup(){
 
 
-if [ "$1" == "gitsetup" ];then
+}
 
-	github_setup
+case "$1" in
+	"all")
+		pacpkg
+		clone_and_build
+		start_services
+		;;
 
-fi
+	"gitsetup")
+		github_setup
+		;;
+
+	"packages")
+		pacpkg
+		;;
+
+	"builds")
+		clone_and_build
+		;;
+	-h | --help | help | -help)
+		display_help
+		;;
+	*)
+		echo "Unknown command, use -h"
+		;;
 
 
-
+esac
 
 
  
