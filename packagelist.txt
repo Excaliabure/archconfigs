@@ -32,12 +32,15 @@ cmake
 code
 discord
 discover
+dnsmasq
 dolphin
 dolphin-plugins
 dragon
 drkonqi
+edk2-ovmf
 efibootmgr
 elisa
+entr
 falkon
 fastfetch
 ffmpegthumbs
@@ -213,6 +216,7 @@ layer-shell-qt
 libkscreen
 libksysguard
 libplasma
+libvirt
 linux
 linux-firmware
 lokalize
@@ -272,6 +276,7 @@ powerdevil
 poxml
 print-manager
 python-pipx
+qemu-full
 qmlkonsole
 qqc2-breeze-style
 qrca
@@ -289,6 +294,7 @@ step
 sudo
 svgpart
 sweeper
+swtpm
 syncthing
 systemsettings
 tailscale
@@ -298,10 +304,13 @@ tokodon
 tree-sitter-cli
 ttf-jetbrains-mono-nerd
 ttf-roboto
+ufw
 umbrello
 union
 unzip
 vim
+virt-manager
+virt-viewer
 vlc
 waybar
 woff2-font-awesome
