@@ -28,6 +28,7 @@ calindori
 calligra
 cantor
 chezmoi
+cmake
 code
 discord
 discover
@@ -51,7 +52,9 @@ ghidra
 ghostwriter
 git
 github-cli
+glad
 go
+google-chrome
 granatier
 grantlee-editor
 gwenview
@@ -273,6 +276,7 @@ qmlkonsole
 qqc2-breeze-style
 qrca
 rocs
+rpi-imager
 rust
 sddm
 sddm-kcm
@@ -302,6 +306,7 @@ vlc
 waybar
 woff2-font-awesome
 xdg-desktop-portal-kde
+xorg-xhost
 yakuake
 yay
 yay-debug

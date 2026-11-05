@@ -76,6 +76,15 @@ function clone_and_build(){
     mkdir -p ~/.config/hypr/scripts
     cp target/release/waybar_auto_hide ~/.config/hypr/scripts/
 
+    #glfw
+    git clone https://github.com/glfw/glfw.git "$HOME/Downloads/glfw"
+    mkdir "$HOME/Downloads/glfw/build"
+    cd "$HOME/Downloads/glfw/build" || exit
+    cmake ..
+    sudo make install
+
+
+
 }
 
 function move_all_configs(){
@@ -117,6 +126,20 @@ function perform_backup(){
 
 
 }
+
+function notes(){
+
+	echo "If firefox black bars on edges, about:config -> browser.tabs.InTitle -> 0 or 1 or 2"
+
+}
+
+
+
+
+
+
+
+
 
 case "$1" in
 	"all")
