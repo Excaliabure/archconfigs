@@ -283,8 +283,6 @@ qrca
 rocs
 rpi-imager
 rust
-sddm
-sddm-kcm
 signon-kwallet-extension
 skanlite
 skanpage

@@ -16,12 +16,31 @@
 
 # boot for configs and organization
 
+
+#!/usr/bin/env sh
+
 mannual_stuff=""
 
 function pacpkg(){
     # All Packages Installation
+    
     sudo pacman -Syu -y
+    sudo pacman -S python python-pipx
+    pipx ensurepath
     sudo pacman -S --needed - < packagelist.txt
+    
+
+    while IFS= read -r pkg || [ -n "$pkg" ];do
+	    pkg=$(echo "$pkg" | tr -d '\r' | xargs)
+
+	    [ -z "$pkg" ] || [ "${pkg#\#}" !!= "$pkg" ] && continue
+
+            sudo pacman -S --needed --noconfirm "$pkg"
+    done < packagelist.txt
+
+    echo "All packages Installed"
+
+
     sudo npm i -g pyright
 
     pipx install waypaper
@@ -57,10 +76,19 @@ function github_setup(){
 
 
 function clone_and_build(){
+
+   if [ ! -d "$HOME/Downloads" ]; then
+	   mkdir "$HOME/Downloads"
+   fi
+
+
+
     # yay
+    if [ ! -d "$HOME/Download/build_gityay"];then
     git clone https://aur.archlinux.org/yay.git ~/Downloads/build_gityay
     cd ~/Downloads/build_gityay || exit
     makepkg -si
+    fi
     
     # vim-plug
     sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
@@ -70,18 +98,22 @@ function clone_and_build(){
     mannual_stuff+="Run nvim, :TSInstall cpp rust python lua javascript typescript\n"
 
     # Waybar Autohide
-    git clone https://github.com/Zephirus2/waybar_auto_hide.git ~/Downloads/waybarautohide
+    if [ ! -d "$HOME/Downloads/waybar_auto_hide" ];then
+    git clone https://github.com/Zephirus2/waybar_auto_hide.git ~/Downloads/waybar_auto_hide
     cd "$HOME/Downloads/waybar_auto_hide" || exit
     cargo build --release
     mkdir -p ~/.config/hypr/scripts
     cp target/release/waybar_auto_hide ~/.config/hypr/scripts/
+    fi
 
     #glfw
+    if [ ! -d "$HOME/Downloads/glfw" ];then
     git clone https://github.com/glfw/glfw.git "$HOME/Downloads/glfw"
     mkdir "$HOME/Downloads/glfw/build"
     cd "$HOME/Downloads/glfw/build" || exit
     cmake ..
     sudo make install
+    fi
 
 
 
@@ -91,13 +123,13 @@ function move_all_configs(){
     
     # Configs
     dots=("hypr" "fuzzel" "kitty" "nvim" "waybar" "waypaper")
-    for d in dots
-    do 
-	cp "$PWD/.config/$d" "$HOME/.config/"
+
+    for d in "${dots[@]}"; do
+	    cp -r "$PWD/.config/$d" "$HOME/.config/"
     done
     
     # Wallpapers
-    cp "$PWD/wallpapers" "$HOME/Pictures/"
+    cp -r "$PWD/wallpapers" "$HOME/Pictures/"
 
     # Bash
     cp -r "$PWD/.bashrc" "$HOME/.bashrc"
@@ -107,7 +139,7 @@ function move_all_configs(){
 
 function start_services(){
     sudo systemctl start tailscaled
-    sudo systemctl enable sddm
+#    sudo systemctl enable sddm
 
 }
 
@@ -122,10 +154,8 @@ function display_help(){
 	builds - Builds up used external non-pacman packages"
 }
 
-function perform_backup(){
 
 
-}
 
 function notes(){
 
@@ -145,7 +175,10 @@ case "$1" in
 	"all")
 		pacpkg
 		clone_and_build
+		move_all_configs
 		start_services
+		github_setup
+		echo $mannual_stuff
 		;;
 
 	"gitsetup")
@@ -155,9 +188,14 @@ case "$1" in
 	"packages")
 		pacpkg
 		;;
-
 	"builds")
 		clone_and_build
+		;;
+	"configs")
+		move_all_configs
+		;;
+	"services")
+		start_services
 		;;
 	-h | --help | help | -help)
 		display_help
