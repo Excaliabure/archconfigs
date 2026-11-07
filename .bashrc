@@ -4,11 +4,10 @@
 
 ### OepnFOAM ###
 
-export FOAM_INST_DIR="$HOME/OpenFOAM"
-alias of2206='source $FOAM_INST_DIR/OpenFOAM-v2206/etc/bashrc'
 
 alias cproj='cd /home/excal/Sync/Web/Stuff/cpluspractice/proj1'
 
+set bell-style none
 
 ###
 
